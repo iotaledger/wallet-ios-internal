@@ -19,7 +19,7 @@ jobs:
       - name: Checkout wallet.rs
         uses: actions/checkout@v2
         with:
-          repository: github.com/pascalbros/wallet.rs
+          repository: pascalbros/wallet.rs
           ref: feat/swift-binding
           path: wallet-rs
           
