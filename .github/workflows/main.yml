@@ -1,0 +1,36 @@
+name: Release
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-10.15
+
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+      
+      - name: Checkout wallet.rs
+        uses: actions/checkout@v2
+        with:
+          repository: github.com/pascalbros/wallet.rs
+          ref: feat/swift-binding
+          path: wallet-rs
+          
+      - name: Make universal framework
+        run: |
+          cd wallet-rs/bindings/swift/native
+          ./make_universal_xcframework.sh
+          zip -r target/IOTAWalletFramework.zip target/universal/IOTAWalletInternal.xcframework
+          
+      - name: Upload framework
+        uses: actions/upload-artifact@v2
+        with:
+          name: code-coverage-report
+          path: wallet-rs/bindings/swift/native/target/IOTAWalletFramework.zip
