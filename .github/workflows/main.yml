@@ -13,7 +13,6 @@ jobs:
     runs-on: macos-11
 
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
       
       - name: Checkout wallet.rs
@@ -27,10 +26,33 @@ jobs:
         run: |
           cd wallet-rs/bindings/swift/native
           ./make_universal_xcframework.sh
-          zip -r target/IOTAWalletFramework.zip target/universal/IOTAWalletInternal.xcframework
-          
+          cd target/universal
+          zip -r target/IOTAWalletFramework.zip IOTAWalletInternal.xcframework
+      
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: IOTAWalletInternal ${{ github.ref }}
+          draft: false
+          prerelease: false
+      
+      - name: Upload Release Asset
+        id: upload-release-asset 
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: wallet-rs/bindings/swift/native/target/IOTAWalletFramework.zip
+          asset_name: IOTAWalletInternal-${{ github.ref }}.zip
+          asset_content_type: application/zip
+                
       - name: Upload framework
         uses: actions/upload-artifact@v2
         with:
-          name: code-coverage-report
+          name: IOTAWalletInternal-${{ github.ref }}.zip
           path: wallet-rs/bindings/swift/native/target/IOTAWalletFramework.zip
