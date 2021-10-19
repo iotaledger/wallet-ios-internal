@@ -27,7 +27,7 @@ jobs:
           cd wallet-rs/bindings/swift/native
           ./make_universal_xcframework.sh
           cd target/universal
-          zip -r target/IOTAWalletInternal.zip IOTAWalletInternal.xcframework
+          zip -r IOTAWalletInternal.zip IOTAWalletInternal.xcframework
       
       - name: Create Release
         id: create_release
