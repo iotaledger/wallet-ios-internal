@@ -33,8 +33,8 @@ jobs:
           release_sha1=`openssl sha1 ${release_file}|tail -c 41`
           touch $release_body_file
           echo "### Checksum" >> $release_body_file
-          echo "MD5: ${release_md5}" >> $release_body_file
-          echo "SHA1: ${release_sha1}" >> $release_body_file
+          echo "MD5: \`${release_md5}\`" >> $release_body_file
+          echo "SHA1: \`${release_sha1}\`" >> $release_body_file
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
