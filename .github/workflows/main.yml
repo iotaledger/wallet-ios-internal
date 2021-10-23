@@ -2,7 +2,6 @@ name: Release
 
 on:
   push:
-    branches: [ main ]
     tags:
       - '*'
 
@@ -28,7 +27,14 @@ jobs:
           ./make_universal_xcframework.sh
           cd target/universal
           zip -r IOTAWalletInternal.zip IOTAWalletInternal.xcframework
-      
+          release_file="IOTAWalletInternal.zip"
+          release_body_file="release.md"
+          release_md5=`md5 ${release_file}|tail -c 33`
+          release_sha1=`openssl sha1 ${release_file}|tail -c 41`
+          touch $release_body_file
+          echo "### Checksum" >> $release_body_file
+          echo "MD5: \`${release_md5}\`" >> $release_body_file
+          echo "SHA1: \`${release_sha1}\`" >> $release_body_file
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
@@ -39,6 +45,7 @@ jobs:
           release_name: IOTAWalletInternal ${{ github.ref }}
           draft: false
           prerelease: false
+          body_path: wallet-rs/bindings/swift/native/target/universal/release.md
       
       - name: Upload Release Asset
         id: upload-release-asset 
