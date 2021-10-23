@@ -24,8 +24,8 @@ jobs:
       - name: Make universal framework
         run: |
           cd wallet-rs/bindings/swift/native
-          firefly_commit=$(git rev-parse --short=10 HEAD);
-          echo "Firefly: https://github.com/iotaledger/firefly/commit/${firefly_commit}"
+          walletrs_commit=$(git rev-parse --short=10 HEAD);
+          echo "wallet.rs: https://github.com/iotaledger/wallet.rs/commit/${firefly_commit}"
           ./make_universal_xcframework.sh
           cd target/universal
           zip -r IOTAWalletInternal.zip IOTAWalletInternal.xcframework
@@ -37,7 +37,7 @@ jobs:
           echo "### Checksum" >> $release_body_file
           echo "MD5: \`${release_md5}\`" >> $release_body_file
           echo "SHA1: \`${release_sha1}\`" >> $release_body_file
-          echo "Firefly: [${firefly_commit}](https://github.com/iotaledger/firefly/commit/${firefly_commit})" >> $release_body_file
+          echo "wallet.rs: [${walletrs_commit}](https://github.com/iotaledger/wallet.rs/commit/${walletrs_commit})" >> $release_body_file
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
