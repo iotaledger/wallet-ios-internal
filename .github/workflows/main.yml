@@ -17,7 +17,7 @@ jobs:
       - name: Checkout wallet.rs
         uses: actions/checkout@v2
         with:
-          repository: pascalbros/wallet.rs
+          repository: iotaledger/wallet.rs
           ref: feat/swift-binding
           path: wallet-rs
           
@@ -25,7 +25,7 @@ jobs:
         run: |
           cd wallet-rs/bindings/swift/native
           walletrs_commit=$(git rev-parse --short=10 HEAD);
-          echo "wallet.rs: https://github.com/iotaledger/wallet.rs/commit/${firefly_commit}"
+          echo "wallet.rs: https://github.com/iotaledger/wallet.rs/commit/${walletrs_commit}"
           ./make_universal_xcframework.sh
           cd target/universal
           zip -r IOTAWalletInternal.zip IOTAWalletInternal.xcframework
