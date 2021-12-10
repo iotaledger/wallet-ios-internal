@@ -13,19 +13,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      
-      - name: Checkout wallet.rs
-        uses: actions/checkout@v2
-        with:
-          repository: iotaledger/wallet.rs
-          ref: feat/swift-binding
-          path: wallet-rs
-          
+
       - name: Make universal framework
         run: |
-          cd wallet-rs/bindings/swift/native
-          walletrs_commit=$(git rev-parse --short=10 HEAD);
-          echo "wallet.rs: https://github.com/iotaledger/wallet.rs/commit/${walletrs_commit}"
+          cd binding
           ./make_universal_xcframework.sh
           cd target/universal
           zip -r IOTAWalletInternal.zip IOTAWalletInternal.xcframework
@@ -37,7 +28,6 @@ jobs:
           echo "### Checksum" >> $release_body_file
           echo "MD5: \`${release_md5}\`" >> $release_body_file
           echo "SHA1: \`${release_sha1}\`" >> $release_body_file
-          echo "wallet.rs: [${walletrs_commit}](https://github.com/iotaledger/wallet.rs/commit/${walletrs_commit})" >> $release_body_file
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
@@ -48,7 +38,7 @@ jobs:
           release_name: IOTAWalletInternal ${{ github.ref }}
           draft: false
           prerelease: false
-          body_path: wallet-rs/bindings/swift/native/target/universal/release.md
+          body_path: binding/target/universal/release.md
       
       - name: Upload Release Asset
         id: upload-release-asset 
@@ -57,6 +47,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: wallet-rs/bindings/swift/native/target/universal/IOTAWalletInternal.zip
+          asset_path: binding/target/universal/IOTAWalletInternal.zip
           asset_name: IOTAWalletInternal-${{ github.ref }}.zip
           asset_content_type: application/zip
