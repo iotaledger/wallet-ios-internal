@@ -29,9 +29,9 @@ jobs:
           echo "MD5: \`${release_md5}\`" >> $release_body_file
           echo "SHA1: \`${release_sha1}\`" >> $release_body_file
       
-      - name: List asset sizes
+      - name: List file sizes
         run: ls -lh
-        working-directory: binding
+        working-directory: binding/target/universal
 
       # - name: Create Release
       #   id: create_release

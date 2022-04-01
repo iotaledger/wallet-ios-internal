@@ -20,3 +20,7 @@ serde = "1.0"
 bee-common = "0.4.1"
 log = "0.4"
 futures = "0.3"
+
+[profile.release]
+lto = "fat"
+debug = 1
