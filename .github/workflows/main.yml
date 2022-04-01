@@ -28,25 +28,30 @@ jobs:
           echo "### Checksum" >> $release_body_file
           echo "MD5: \`${release_md5}\`" >> $release_body_file
           echo "SHA1: \`${release_sha1}\`" >> $release_body_file
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: IOTAWalletInternal ${{ github.ref }}
-          draft: false
-          prerelease: false
-          body_path: binding/target/universal/release.md
       
-      - name: Upload Release Asset
-        id: upload-release-asset 
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: binding/target/universal/IOTAWalletInternal.zip
-          asset_name: IOTAWalletInternal-${{ github.ref }}.zip
-          asset_content_type: application/zip
+      - name: List asset sizes
+        run: ls -lh
+        working-directory: binding
+
+      # - name: Create Release
+      #   id: create_release
+      #   uses: actions/create-release@v1
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   with:
+      #     tag_name: ${{ github.ref }}
+      #     release_name: IOTAWalletInternal ${{ github.ref }}
+      #     draft: false
+      #     prerelease: false
+      #     body_path: binding/target/universal/release.md
+      
+      # - name: Upload Release Asset
+      #   id: upload-release-asset 
+      #   uses: actions/upload-release-asset@v1
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   with:
+      #     upload_url: ${{ steps.create_release.outputs.upload_url }}
+      #     asset_path: binding/target/universal/IOTAWalletInternal.zip
+      #     asset_name: IOTAWalletInternal-${{ github.ref }}.zip
+      #     asset_content_type: application/zip
