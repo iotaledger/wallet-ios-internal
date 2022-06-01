@@ -1455,38 +1455,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "iota-wallet"
-version = "0.2.0"
-source = "git+https://github.com/iotaledger/wallet.rs?branch=dev#93b81f8bf7133b75670f23c735d0d259fab0744a"
-dependencies = [
- "async-trait",
- "backtrace",
- "bee-common 0.5.0",
- "bytemuck",
- "chrono",
- "futures",
- "getset",
- "hex",
- "iota-client 1.1.0",
- "iota-core",
- "iota-crypto 0.5.1",
- "iota_stronghold",
- "log",
- "once_cell",
- "rand 0.8.4",
- "riker",
- "rocksdb",
- "serde 1.0.131",
- "serde_json",
- "serde_repr",
- "slog",
- "thiserror",
- "tokio",
- "url",
- "zeroize",
-]
-
-[[package]]
 name = "iota-wallet-swift-binding"
 version = "0.1.0"
 dependencies = [
