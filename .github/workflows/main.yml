@@ -22,6 +22,7 @@ jobs:
         with:
           repository: iotaledger/wallet.rs
           ref: refs/heads/develop
+          path: wallet.rs
 
       - name: Make universal framework
         run: |
