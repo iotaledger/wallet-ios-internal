@@ -14,14 +14,12 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-        with:
-          ref: refs/heads/develop
 
       - name: Checkout wallet.rs
         uses: actions/checkout@v3
         with:
           repository: iotaledger/wallet.rs
-          ref: refs/heads/develop
+          ref: refs/heads/fix/swift-rocksdb-build
           path: wallet.rs
 
       - name: Make universal framework
@@ -50,7 +48,7 @@ jobs:
           release_name: IOTAWalletInternal ${{ github.ref }}
           draft: false
           prerelease: false
-          body_path: binding/target/universal/release.md
+          body_path: wallet.rs/bindings/swift/release.md
       
       - name: Upload Release Asset
         id: upload-release-asset 
@@ -59,6 +57,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: binding/target/universal/IOTAWalletInternal.zip
+          asset_path: wallet.rs/bindings/swift/IOTAWalletInternal.zip
           asset_name: IOTAWalletInternal-${{ github.ref }}.zip
           asset_content_type: application/zip
