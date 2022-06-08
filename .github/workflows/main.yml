@@ -12,13 +12,23 @@ jobs:
     runs-on: macos-11
 
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          repository: orgname/reponame
+
+      - name: Checkout wallet.rs
+        uses: actions/checkout@v3
+        with:
+          repository: iotaledger/wallet.rs
+          ref: refs/heads/develop
 
       - name: Make universal framework
         run: |
-          cd binding
-          ./make_universal_xcframework.sh
-          cd target/universal
+          ls
+          cp cicd.sh wallet.rs/bindings/swift/cicd.sh
+          cd wallet.rs/bindings/swift/
+          ./cicd.sh
           zip -r IOTAWalletInternal.zip IOTAWalletInternal.xcframework
           release_file="IOTAWalletInternal.zip"
           release_body_file="release.md"
@@ -28,6 +38,7 @@ jobs:
           echo "### Checksum" >> $release_body_file
           echo "MD5: \`${release_md5}\`" >> $release_body_file
           echo "SHA1: \`${release_sha1}\`" >> $release_body_file
+
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
