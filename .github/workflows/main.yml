@@ -15,7 +15,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
         with:
-          repository: orgname/reponame
+          ref: refs/heads/develop
 
       - name: Checkout wallet.rs
         uses: actions/checkout@v3
