@@ -26,8 +26,8 @@ EOT
 
 rm -rf IOTAWalletInternal.xcframework
 xcodebuild -create-xcframework \
--library ./target/aarch64-apple-ios/release/libiota_wallet.a \
--headers ./include \
--library ./target/x86_64-apple-ios/release/libiota_wallet.a \
--headers ./include \
+-library ./native/target/aarch64-apple-ios/release/libiota_wallet.a \
+-headers ./native/include \
+-library ./native/target/x86_64-apple-ios/release/libiota_wallet.a \
+-headers ./native/include \
 -output IOTAWalletInternal.xcframework
