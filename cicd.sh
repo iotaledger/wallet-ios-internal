@@ -15,6 +15,7 @@ cargo build --target x86_64-apple-ios --release --lib
 rm -rf include
 mkdir include
 cp iota_wallet_ffi.h include/IOTAWalletInternal.h
+tree
 
 touch include/module.modulemap
 tee -a include/module.modulemap > /dev/null <<EOT
@@ -26,8 +27,8 @@ EOT
 
 rm -rf IOTAWalletInternal.xcframework
 xcodebuild -create-xcframework \
--library ./target/aarch64-apple-ios/release/libiota_wallet.a \
+-library ./native/target/aarch64-apple-ios/release/libwallet.a \
 -headers ./include \
--library ./target/x86_64-apple-ios/release/libiota_wallet.a \
+-library ./native/target/x86_64-apple-ios/release/libwallet.a \
 -headers ./include \
 -output IOTAWalletInternal.xcframework
