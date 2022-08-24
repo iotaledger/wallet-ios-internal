@@ -18,8 +18,8 @@ jobs:
       - name: Checkout wallet.rs
         uses: actions/checkout@v3
         with:
-          repository: amadeu2/wallet.rs
-          ref: refs/heads/particitation-swift-binding
+          repository: jeeanribeiro/wallet.rs
+          ref: refs/heads/participation-swift-binding
           path: wallet.rs
 
       - name: Make universal framework
