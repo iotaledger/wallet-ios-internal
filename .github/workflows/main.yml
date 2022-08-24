@@ -18,8 +18,8 @@ jobs:
       - name: Checkout wallet.rs
         uses: actions/checkout@v3
         with:
-          repository: iotaledger/wallet.rs
-          ref: refs/heads/develop
+          repository: amadeu2/wallet.rs
+          ref: refs/heads/add-swift-folder
           path: wallet.rs
 
       - name: Make universal framework
