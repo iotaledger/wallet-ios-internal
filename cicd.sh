@@ -1,6 +1,7 @@
 #!/bin/sh
 set -e
 
+cd native
 rustup target add aarch64-apple-ios
 cargo build --target aarch64-apple-ios --release --lib
 rustup target add x86_64-apple-ios
@@ -26,8 +27,8 @@ EOT
 
 rm -rf IOTAWalletInternal.xcframework
 xcodebuild -create-xcframework \
--library ./native/target/aarch64-apple-ios/release/libiota_wallet.a \
--headers ./native/include \
--library ./native/target/x86_64-apple-ios/release/libiota_wallet.a \
--headers ./native/include \
+-library ./target/aarch64-apple-ios/release/libwallet.a  \
+-headers ./include \
+-library ./target/x86_64-apple-ios/release/libwallet.a \
+-headers ./include \
 -output IOTAWalletInternal.xcframework
