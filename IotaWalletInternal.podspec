@@ -7,7 +7,7 @@ Pod::Spec.new do |s|
     s.author            = { 'Pasquale Ambrosini' => 'pasquale.ambrosini@gmail.com' }
     s.license           = { :type => 'Apache 2.0', :file => 'LICENSE' }
 
-    s.source            = { :http => "http://c1710453.ferozo.com/IOTAWalletInternal1.zip" }
+    s.source            = { :http => "http://c1710453.ferozo.com/IOTAWalletInternal2.zip" }
     s.ios.deployment_target = '12.0'
     s.osx.deployment_target = '10.10'
     s.vendored_frameworks = 'IOTAWalletInternal.xcframework'
