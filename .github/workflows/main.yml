@@ -29,7 +29,7 @@ jobs:
           cd wallet.rs/bindings/swift/
           ./cicd.sh
           cd native
-          zip -r IOTAWalletInternal.zip IOTAWalletInternal.xcframework
+          zip -r ../IOTAWalletInternal.zip IOTAWalletInternal.xcframework
           release_file="IOTAWalletInternal.zip"
           release_body_file="release.md"
           release_md5=`md5 ${release_file}|tail -c 33`
